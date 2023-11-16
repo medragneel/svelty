@@ -2,7 +2,7 @@
     import Header from "$lib/components/header.svelte";
     import "$lib/styles/global.css";
     import { media } from "$lib/api.js";
-    import { fade } from "svelte/transition";
+    import { fade, slide, blur } from "svelte/transition";
 
     export let data;
 </script>
@@ -46,6 +46,7 @@
             <a
                 class="btn btn-dark"
                 href={`https://vidsrc.me/embed/tv?tmdb=${data.movie.id}`}
+                target="_blank"
             >
                 <i class="fa-solid fa-play pr-1" />
                 vidsrc2</a
@@ -86,6 +87,7 @@
                     <img
                         src={media(movie.poster_path, 200)}
                         alt={movie.title}
+                        transition:blur
                     />
                 </a>
             {/each}

@@ -45,6 +45,7 @@
             <a
                 class="btn btn-dark"
                 href={`https://vidsrc.me/embed/movie?tmdb=${data.movie.id}`}
+                target="_blank"
             >
                 <i class="fa-solid fa-play pr-1" />
                 vidsrc2</a

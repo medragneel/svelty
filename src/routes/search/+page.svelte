@@ -1,8 +1,7 @@
 <script lang="ts">
-    import Grid from "$lib/components/grid.svelte";
+    import { media } from "$lib/api.js";
     import "$lib/styles/global.css";
     export let data;
-    console.log(data)
 </script>
 
 <div class="container p-3">
@@ -25,6 +24,27 @@
     <br />
 
     {#if data.query}
-        <Grid movies={data.movies} next={null} />
+        <div class="container">
+            <div class="grid">
+                {#each data.movies as movie (movie.id)}
+                    {#if movie.media_type === "movie"}
+                        <a href={`/movie/${movie.id}`}>
+                            <img
+                                src={media(movie.poster_path, 200)}
+                                alt={movie.title}
+                            />
+                        </a>
+                    {:else}
+                        <a href={`/tv/${movie.id}`}>
+                            <img
+                                src={media(movie.poster_path, 200)}
+                                alt={movie.title}
+                            />
+                        </a>
+                    {/if}
+                {/each}
+            </div>
+            <br />
+        </div>
     {/if}
 </div>
