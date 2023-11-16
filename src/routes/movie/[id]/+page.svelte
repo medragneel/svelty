@@ -2,8 +2,10 @@
     import Header from "$lib/components/header.svelte";
     import "$lib/styles/global.css";
     import { media } from "$lib/api.js";
+    import type {Genre} from '$lib/types/movies'
 
     export let data;
+    const genres: Genre[] = data.movie.genres
 </script>
 
 <Header movie={data.movie} trailer={data.trailer} name={data.movie.title} />
@@ -70,7 +72,10 @@
 
         <dt>Genre</dt>
         <dd class="genres">
-            {data.movie.genres?.map((g) => g.name).join(", ")}
+        {#each genres as genre (genre.id) }
+            <span>{genre.name}, </span>
+
+        {/each}
         </dd>
     </dl>
 </div>

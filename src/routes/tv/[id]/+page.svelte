@@ -71,7 +71,12 @@
 
         <dt>Genre</dt>
         <dd class="genres">
-            {data.movie.genres?.map((g) => g.name).join(", ")}
+
+        {#each data.movie.genres as genre (genre.id) }
+            <span>{genre.name},  </span>
+
+        {/each}
+
         </dd>
     </dl>
 </div>

@@ -4,7 +4,7 @@
     import { fade } from "svelte/transition";
 
     export let movie: MovieDetails;
-    export let trailer: Trailer;
+    export let trailer: Trailer | undefined;
     export let name: string;
     let Watching = false;
     const toggleWatching = () => (Watching = !Watching);

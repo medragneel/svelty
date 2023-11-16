@@ -1,6 +1,7 @@
 <script lang="ts">
     import { media } from "$lib/api";
-    export let shows;
+    import type { ShowList } from "$lib/types/movies";
+    export let shows: ShowList;
     export let title: string;
     export let href: string | null;
 </script>
