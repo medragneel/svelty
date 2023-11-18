@@ -36,10 +36,21 @@
                         </a>
                     {:else}
                         <a href={`/tv/${movie.id}`}>
-                            <img
-                                src={media(movie.poster_path, 200)}
-                                alt={movie.title}
-                            />
+                            {#if movie.poster_path !== undefined}
+                                <img
+                                    src={media(movie.poster_path, 200)}
+                                    alt={movie.title}
+                                />
+                            {:else}
+                                <img
+                                width="200"
+                                height="300"
+                                    src="https://www.solidbackgrounds.com/images/1280x720/1280x720-black-solid-color-background.jpg"
+                                    alt={movie.id.toString()}
+                                    class="featured"
+                                />
+                            {/if}
+                            <span>{movie.title}</span>
                         </a>
                     {/if}
                 {/each}
@@ -48,3 +59,9 @@
         </div>
     {/if}
 </div>
+
+<style>
+    img {
+        border-radius: 8px;
+    }
+</style>

@@ -14,11 +14,19 @@
 <div class="top">
     <div class="columns">
         <div class="column is-full featured_wrapper p-0">
-            <img
-                src={media(backdrops?.file_path, 1280)}
-                alt={movie.id.toString()}
-                class="featured"
-            />
+            {#if backdrops?.file_path !== undefined}
+                <img
+                    src={media(backdrops?.file_path, 1280)}
+                    alt={movie.id.toString()}
+                    class="featured"
+                />
+            {:else}
+                <img
+                    src="https://www.solidbackgrounds.com/images/1280x720/1280x720-black-solid-color-background.jpg"
+                    alt={movie.id.toString()}
+                    class="featured"
+                />
+            {/if}
             <div class="title_wrapper container">
                 <span class="txt-light">Trending Today</span>
                 <h1 class="title txt-light fs-xxl">

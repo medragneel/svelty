@@ -17,11 +17,20 @@
     <div class="columns">
         {#if !Watching}
             <div class="column is-full featured_wrapper p-0" transition:fade>
+
+            {#if backdrops?.file_path !== undefined}
                 <img
                     src={media(backdrops?.file_path, 1280)}
                     alt={movie.id.toString()}
                     class="featured"
                 />
+            {:else}
+                <img
+                    src="https://www.solidbackgrounds.com/images/1280x720/1280x720-black-solid-color-background.jpg"
+                    alt={movie.id.toString()}
+                    class="featured"
+                />
+            {/if}
                 <div class="title_wrapper">
                     <span class="txt-light">Trending Today</span>
                     <h1 class="title txt-light fs-xxl">
