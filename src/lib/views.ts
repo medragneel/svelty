@@ -26,11 +26,11 @@ export const Tviews: Record<string, View> = {
         title: 'Tv/Trending',
         endpoint: 'trending/tv/day'
     },
-    airing: {
+    airing_today: {
         title: 'Tv/AiringToday',
         endpoint: 'tv/airing_today'
     },
-    top: {
+    top_rated: {
         title: 'Tv/TopRated',
         endpoint: 'tv/top_rated'
     },

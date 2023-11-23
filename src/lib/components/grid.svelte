@@ -1,8 +1,8 @@
 <script lang="ts">
     import { media } from "$lib/api";
-    import type { MovieListResult } from "$lib/types/movies";
+    import type { MovieListResult, ShowListResult } from "$lib/types/movies";
 
-    export let movies: MovieListResult[];
+    export let movies: MovieListResult[] | ShowListResult[];
     export let next: string | null;
 </script>
 
@@ -10,7 +10,8 @@
     <div class="grid">
         {#each movies as movie (movie.id)}
             <a href={`/movie/${movie.id}`}>
-                <img src={media(movie.poster_path, 200)} alt={movie.title} />
+                <img src={media(movie.poster_path, 200)} alt={movie.id.toString
+                ()} />
             </a>
         {/each}
     </div>

@@ -13,8 +13,16 @@
     <Tslide
         title={Tviews.trending.title}
         shows={data.trending}
-        href="/tv/trending"
+        href="/shows/trending"
     />
-    <Tslide title={Tviews.airing.title} shows={data.airing} href="/tv/airing" />
-    <Tslide title={Tviews.top.title} shows={data.top} href="/tv/top" />
+    <Tslide
+        title={Tviews.airing_today.title}
+        shows={data.airing_today}
+        href="/shows/airing_today"
+    />
+    <Tslide
+        title={Tviews.top_rated.title}
+        shows={data.top_rated}
+        href="/shows/top_rated"
+    />
 </div>

@@ -1,5 +1,5 @@
 import * as api from "$lib/api"
-import type { Video } from "$lib/types/movies"
+import type { ShowList, ShowListResult, Video } from "$lib/types/movies"
 
 export async function load({ params, fetch }) {
     const data = await api.get(fetch, `/tv/${params.id}`, {
