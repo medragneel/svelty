@@ -2,7 +2,9 @@
     import Header from "$lib/components/header.svelte";
     import "$lib/styles/global.css";
     import { media } from "$lib/api.js";
-    import { fade, slide, blur } from "svelte/transition";
+    import { fade, blur } from "svelte/transition";
+    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
+    import "@splidejs/svelte-splide/css";
 
     export let data;
 </script>
@@ -71,12 +73,9 @@
 
         <dt>Genre</dt>
         <dd class="genres">
-
-        {#each data.movie.genres as genre (genre.id) }
-            <span>{genre.name},  </span>
-
-        {/each}
-
+            {#each data.movie.genres as genre (genre.id)}
+                <span>{genre.name}, </span>
+            {/each}
         </dd>
     </dl>
 </div>
@@ -84,19 +83,36 @@
 <br />
 
 {#if data.movie.recommendations.results.length > 0}
+    <br />
+    <br />
+
     <div class="py-3 container" transition:fade>
         <h1 class="py-1">You Might Like</h1>
-        <div class="carousel">
+        <br />
+
+        <Splide
+            options={{
+                type: "loop",
+                perPage: 4,
+                perMove: 1,
+                autoWidth: true,
+                gap: "1rem",
+                rewind: true,
+            }}
+            aria-label="My Favorite Images"
+        >
             {#each data.movie.recommendations.results as movie}
-                <a href={`/tv/${movie.id}`}>
-                    <img
-                        src={media(movie.poster_path, 200)}
-                        alt={movie.title}
-                        transition:blur
-                    />
-                </a>
+                <SplideSlide>
+                    <a href={`/tv/${movie.id}`}>
+                        <img
+                            src={media(movie.poster_path, 200)}
+                            alt={movie.title}
+                            transition:blur
+                        />
+                    </a>
+                </SplideSlide>
             {/each}
-        </div>
+        </Splide>
     </div>
 {/if}
 

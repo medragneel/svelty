@@ -2,10 +2,12 @@
     import Header from "$lib/components/header.svelte";
     import "$lib/styles/global.css";
     import { media } from "$lib/api.js";
-    import type {Genre} from '$lib/types/movies'
+    import type { Genre } from "$lib/types/movies";
+    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
+    import "@splidejs/svelte-splide/css";
 
     export let data;
-    const genres: Genre[] = data.movie.genres
+    const genres: Genre[] = data.movie.genres;
 </script>
 
 <Header movie={data.movie} trailer={data.trailer} name={data.movie.title} />
@@ -72,10 +74,9 @@
 
         <dt>Genre</dt>
         <dd class="genres">
-        {#each genres as genre (genre.id) }
-            <span>{genre.name}, </span>
-
-        {/each}
+            {#each genres as genre (genre.id)}
+                <span>{genre.name}, </span>
+            {/each}
         </dd>
     </dl>
 </div>
@@ -84,17 +85,34 @@
 
 {#if data.movie.recommendations.results.length > 0}
     <div class="py-3 container">
+        <br />
+        <br />
+
         <h1 class="py-1">You Might Like</h1>
-        <div class="carousel">
+        <br />
+
+        <Splide
+            options={{
+                type: "loop",
+                perPage: 4,
+                perMove: 1,
+                autoWidth: true,
+                gap: "1rem",
+                rewind: true,
+            }}
+            aria-label="My Favorite Images"
+        >
             {#each data.movie.recommendations.results as movie}
-                <a href={`/movie/${movie.id}`}>
-                    <img
-                        src={media(movie.poster_path, 200)}
-                        alt={movie.title}
-                    />
-                </a>
+                <SplideSlide>
+                    <a href={`/movie/${movie.id}`}>
+                        <img
+                            src={media(movie.poster_path, 200)}
+                            alt={movie.title}
+                        />
+                    </a>
+                </SplideSlide>
             {/each}
-        </div>
+        </Splide>
     </div>
 {/if}
 
