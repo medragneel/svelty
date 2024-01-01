@@ -24,7 +24,7 @@
             <a
                 class="btn btn-dark"
                 href={`https://vidsrc.to/embed/tv/${data.movie.id}`}
-                target="_blank"
+                target="show"
             >
                 <i class="fa-solid fa-play pr-1" />
                 vidsrc
@@ -32,29 +32,38 @@
             <a
                 class="btn btn-dark"
                 href={`https://multiembed.mov/?video_id=${data.movie.id}&tmdb=1&s=1&e=1`}
-                target="_blank"
+                target="show"
             >
                 <i class="fa-solid fa-play pr-1" />
                 superEmbed</a
             >
             <a
                 class="btn btn-dark"
-                href={`https://seez.su/tv/${data.movie.id}`}
-                target="_blank"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                seez.su</a
-            >
-            <a
-                class="btn btn-dark"
                 href={`https://vidsrc.me/embed/tv?tmdb=${data.movie.id}`}
-                target="_blank"
+                target="show"
             >
                 <i class="fa-solid fa-play pr-1" />
                 vidsrc2</a
             >
         </div>
     </div>
+    <br />
+    <br />
+
+    <center>
+        <div class="iframe-container">
+            <iframe
+                src={`https://vidsrc.to/embed/movie/${data.movie.id}`}
+                title={data.movie.id.toString()}
+                sandbox="allow-same-origin allow-forms allow-scripts allow-presentation allow-orientation-lock"
+                allow="encrypted-media"
+                allowfullscreen
+                frameborder="0"
+                name="show"
+            ></iframe>
+        </div>
+    </center>
+
     <br />
     <br />
 
@@ -117,6 +126,21 @@
 {/if}
 
 <style>
+    .iframe-container {
+        overflow: hidden;
+        padding-top: 56.25%; /* 16:9*/
+        position: relative;
+    }
+
+    .iframe-container iframe {
+        border: 0;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
     img {
         border-radius: 0.75em;
     }
