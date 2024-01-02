@@ -1,6 +1,6 @@
 <script>
     import "$lib/styles/global.css";
-    import Grid from "$lib/components/grid.svelte";
+    import Tgrid from "$lib/components/tgrid.svelte";
     export let data;
 </script>
 
@@ -12,7 +12,7 @@
 <br />
 <br />
 
-<Grid
+<Tgrid
     movies={data.movies}
-    next={data.next_page ? `/movies/${data.view}?page=${data.next_page}` : null}
+    next={data.next_page ? `/shows/${data.view}?page=${data.next_page}` : null}
 />

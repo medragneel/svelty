@@ -30,4 +30,9 @@
         movies={data.top_rated}
         href="/movies/top_rated"
     />
+    <Carousel
+        title={views.discover.title}
+        movies={data.discover}
+        href="/movies/discover"
+    />
 </div>

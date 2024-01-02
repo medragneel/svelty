@@ -2,6 +2,7 @@
     import "$lib/styles/global.css";
     import Grid from "$lib/components/grid.svelte";
     export let data;
+    console.log(data.movies.results)
 </script>
 
 <br />

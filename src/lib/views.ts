@@ -19,6 +19,10 @@ export const views: Record<string, View> = {
     upcoming: {
         title: 'Movies/Upcoming',
         endpoint: 'movie/now_playing'
+    },
+    discover: {
+        title: 'Movies/Discover',
+        endpoint: 'discover/movie'
     }
 };
 export const Tviews: Record<string, View> = {
@@ -34,4 +38,8 @@ export const Tviews: Record<string, View> = {
         title: 'Tv/TopRated',
         endpoint: 'tv/top_rated'
     },
+    discover: {
+        title: 'tv/Discover',
+        endpoint: 'discover/tv'
+    }
 };

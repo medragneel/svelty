@@ -25,4 +25,9 @@
         shows={data.top_rated}
         href="/shows/top_rated"
     />
+    <Tslide
+        title={Tviews.discover.title}
+        shows={data.discover}
+        href="/shows/discover"
+    />
 </div>

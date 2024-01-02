@@ -18,6 +18,36 @@
         <p class="p-1">{data.movie.overview}</p>
     </div>
     <br />
+    <div class="cast">
+        <h1 class="align-center p-2">Cast</h1>
+        <center>
+            <Splide
+                options={{
+                    type: "loop",
+                    perPage: 4,
+                    perMove: 1,
+                    autoWidth: true,
+                    gap: "0.5rem",
+                    pagination: false,
+                }}
+                aria-label="My Favorite Images"
+            >
+                {#each data.movie.credits.cast as castMember (castMember.id)}
+                    <SplideSlide>
+                        <div class="cast-member card">
+                            <img
+                                style="border-radius: 50%;"
+                                src={media(castMember.profile_path, 200)}
+                                alt={castMember.id.toString()}
+                            />
+                            <p>{castMember.name}</p>
+                            <em class="txt-disabled">{castMember.character}</em>
+                        </div>
+                    </SplideSlide>
+                {/each}
+            </Splide>
+        </center>
+    </div>
     <br />
     <div class="container">
         <h1 class="align-center py-2">Watch links</h1>
@@ -32,20 +62,37 @@
             </a>
             <a
                 class="btn btn-dark"
-                href={`https://multiembed.mov/?video_id=${data.movie.id}&tmdb=1`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                superEmbed</a
-            >
-            <a
-                class="btn btn-dark"
                 href={`https://vidsrc.me/embed/movie?tmdb=${data.movie.id}`}
                 target="movie"
             >
                 <i class="fa-solid fa-play pr-1" />
                 vidsrc2</a
             >
+            <a
+                class="btn btn-dark"
+                href={`https://multiembed.mov/?video_id=${data.movie.id}&tmdb=1`}
+                target="movie"
+            >
+                <i class="fa-solid fa-play pr-1" />
+                superEmbed</a
+            >
+
+            <a
+                class="btn btn-dark"
+                href={`https://frembed.com/api/film.php?id=${data.movie.id}`}
+                target="movie"
+            >
+                <i class="fa-solid fa-play pr-1" />
+                frembed
+            </a>
+            <a
+                class="btn btn-dark"
+                href={`https://blackvid.space/embed?tmdb=${data.movie.id}`}
+                target="movie"
+            >
+                <i class="fa-solid fa-play pr-1" />
+                blackvid
+            </a>
         </div>
     </div>
     <br />
@@ -124,6 +171,18 @@
 {/if}
 
 <style>
+    .cast-member {
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .cast-member img {
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+    }
     .iframe-container {
         overflow: hidden;
         padding-top: 56.25%; /* 16:9*/

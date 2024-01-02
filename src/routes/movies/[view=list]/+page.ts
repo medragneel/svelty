@@ -5,6 +5,7 @@ import { views } from "$lib/views"
 
 export async function load({ params, url, fetch }) {
     const view = views[params.view]
+    console.log(view)
     const page = url.searchParams.get('page') ?? '1'
 
     const data = (await api.get(fetch, view.endpoint, {
