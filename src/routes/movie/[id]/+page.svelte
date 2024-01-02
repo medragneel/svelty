@@ -6,6 +6,24 @@
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import "@splidejs/svelte-splide/css";
 
+    const servers = [
+        {
+            name: "vidsrc",
+            link: "https://vidsrc.to/embed/movie/",
+        },
+        {
+            name: "vidsrc2",
+            link: "https://vidsrc.me/embed/movie?tmdb=",
+        },
+        {
+            name: "smashyStream",
+            link: "https://embed.smashystream.com/playere.php?tmdb=",
+        },
+        {
+            name: "superEmbed",
+            link: "https://multiembed.mov/?video_id=",
+        },
+    ];
     export let data;
     const genres: Genre[] = data.movie.genres;
 </script>
@@ -52,47 +70,16 @@
     <div class="container">
         <h1 class="align-center py-2">Watch links</h1>
         <div class="links carousel">
-            <a
-                class="btn btn-dark"
-                href={`https://vidsrc.to/embed/movie/${data.movie.id}`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                vidsrc
-            </a>
-            <a
-                class="btn btn-dark"
-                href={`https://vidsrc.me/embed/movie?tmdb=${data.movie.id}`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                vidsrc2</a
-            >
-            <a
-                class="btn btn-dark"
-                href={`https://multiembed.mov/?video_id=${data.movie.id}&tmdb=1`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                superEmbed</a
-            >
-
-            <a
-                class="btn btn-dark"
-                href={`https://frembed.com/api/film.php?id=${data.movie.id}`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                frembed
-            </a>
-            <a
-                class="btn btn-dark"
-                href={`https://blackvid.space/embed?tmdb=${data.movie.id}`}
-                target="movie"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                blackvid
-            </a>
+            {#each servers as server}
+                <a
+                    class="btn btn-dark"
+                    href={`${server.link}${data.movie.id}`}
+                    target="movie"
+                >
+                    <i class="fa-solid fa-play pr-1" />
+                    {server.name}
+                </a>
+            {/each}
         </div>
     </div>
     <br />

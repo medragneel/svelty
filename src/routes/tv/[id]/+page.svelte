@@ -6,6 +6,27 @@
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import "@splidejs/svelte-splide/css";
 
+    const servers = [
+        {
+            name: "vidsrc",
+            link: "https://vidsrc.to/embed/tv/",
+        },
+        {
+            name: "vidsrc2",
+            link: "https://vidsrc.me/embed/tv?tmdb=",
+        },
+        {
+            name: "smashyStream",
+            link: "https://embed.smashystream.com/playere.php?tmdb=",
+            params: { season: 1, episode: 1 },
+        },
+        {
+            name: "superEmbed",
+            link: "https://multiembed.mov/?video_id=",
+            params: { tmdb: 1, s: 1, e: 1 },
+        },
+    ];
+
     export let data;
 </script>
 
@@ -51,47 +72,22 @@
     <div class="container">
         <h1 class="align-center py-2">Watch links</h1>
         <div class="links carousel">
-            <a
-                class="btn btn-dark"
-                href={`https://vidsrc.to/embed/tv/${data.movie.id}`}
-                target="show"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                vidsrc
-            </a>
-
-            <a
-                class="btn btn-dark"
-                href={`https://vidsrc.me/embed/tv?tmdb=${data.movie.id}`}
-                target="show"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                vidsrc2</a
-            >
-            <a
-                class="btn btn-dark"
-                href={`https://multiembed.mov/?video_id=${data.movie.id}&tmdb=1&s=1&e=1`}
-                target="show"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                superEmbed</a
-            >
-            <a
-                class="btn btn-dark"
-                href={`https://frembed.com/api/serie.php?id=${data.movie.id}?sa=1&epi=1`}
-                target="show"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                frembed
-            </a>
-            <a
-                class="btn btn-dark"
-                href={`https://blackvid.space/embed?tmdb=${data.movie.id}&season=1&episode=1`}
-                target="show"
-            >
-                <i class="fa-solid fa-play pr-1" />
-                blackvid
-            </a>
+            {#each servers as server}
+                <a
+                    class="btn btn-dark"
+                    href={`${server.link}${data.movie.id}${
+                        server.params
+                            ? `&${Object.entries(server.params)
+                                  .map(([key, value]) => `${key}=${value}`)
+                                  .join("&")}`
+                            : ""
+                    }`}
+                    target="show"
+                >
+                    <i class="fa-solid fa-play pr-1" />
+                    {server.name}
+                </a>
+            {/each}
         </div>
     </div>
     <br />

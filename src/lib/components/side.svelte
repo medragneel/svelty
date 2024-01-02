@@ -19,7 +19,7 @@
 <div class="side--nav" id="nav">
     <nav class="side--nav__content">
         <a href="/" class="side--nav__logo">
-            <span class="logo">ST</span>
+            <span class="logo">S</span>
         </a>
 
         <div class="side--nav__list">
