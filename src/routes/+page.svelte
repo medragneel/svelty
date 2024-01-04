@@ -1,7 +1,5 @@
 <script lang="ts">
-    // your script goes here
     import Hero from "$lib/components/hero.svelte";
-    import "$lib/styles/global.css";
     import Carousel from "$lib/components/carousel.svelte";
     import { views } from "$lib/views.js";
     import { slide } from "svelte/transition";

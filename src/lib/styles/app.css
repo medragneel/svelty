@@ -1,18 +1,307 @@
+@import url("http://fonts.cdnfonts.com/css/earth-orbiter");
+@import url("http://fonts.cdnfonts.com/css/bord-demo");
 
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+html {
+	--font-color: #121212;
+	--bg-color:  #f1f1f1;
+	--accent-color: #8674a2;
+	--nav-color: #eee;
+    --normal-font-size: 0.938rem;
+    --active-color: #613583;
+    --light-color: hsl(0, 0%, 93%);
+    --btn-color: #121212;
+    --btn-txt-color: #f1f1f1;
 
-    :root {
-        /*Color mode HSL(hue, saturation, lightness)*/
-        --first-color: hsl(228, 81%, 49%);
-        --title-color: hsl(228, 12%, 15%);
-        --text-color: hsl(228, 8%, 50%);
-        --body-color: hsl(228, 100%, 99%);
-        --container-color: #fff;
+}
+html[data-theme="dark"] {
+	--font-color: #fff;
+	--bg-color: #121212;
+	--accent-color: #8674a2;
+	--nav-color: #222;
+    --normal-font-size: 0.938rem;
+    --light-color: hsl(0, 0%, 93%);
 
-        /*========== Font and typography ==========*/
-        /*.5rem = 8px | 1rem = 16px ...*/
-        --body-font: "Poppins", sans-serif;
-        --normal-font-size: 0.938rem;
+    --btn-color: #f1f1f1;
+    --btn-txt-color: #121212;
+
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+body{
+
+  background-color: var(--bg-color);
+  color: var(--font-color);
+   transition: color 200ms linear;
+}
+
+body::-webkit-scrollbar {
+  width: 3px; /* width of the entire scrollbar */
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+.align-center {
+  text-align: center;
+}
+
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+.py-3 {
+  padding-block: 4rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px dotted #efefef;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: var(--font-color);
+}
+.btn {
+  color: hsl(0, 0%, 93%);
+  background-color: hsl(211, 90%, 50%);
+  border-radius: 8px;
+  border: none;
+  padding: 1rem;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  margin: 1rem;
+}
+.btn-dark {
+  background-color: var(--btn-color);
+  color:var(--btn-txt-color);
+}
+.txt-light {
+  color:var(--light-color) ;
+}
+.bg-light {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+}
+/* .btn-dark { */
+/*   background-color: hsl(0, 5%, 10%); */
+/* } */
+.btn-dark:hover {
+  background-color: transparent;
+  border: 1px solid hsl(0, 5%, 10%);
+  color: hsl(0, 5%, 10%);
+}
+.carousel {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  overflow-x: auto;
+  scroll-snap-align: start;
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.pr-1 {
+  padding-right: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  grid-gap: 2rem;
+  text-align: center;
+}
+.grid + .grid {
+  margin-top: 2rem;
+}
+.container {
+  padding-inline: 2em;
+  margin-inline: auto;
+  max-width: 80rem;
+}
+input, textarea {
+  padding-inline: 30px;
+  padding-block: 10px;
+  border-radius: 8px;
+  outline: none;
+  border: 1px solid #d2d2d2;
+}
+
+:is(input, textarea):focus {
+  border: 1px solid var(--accent-color);
+}
+
+
+.p-0 {
+  padding: 0;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+
+.p-2 {
+  padding: 2rem;
+}
+
+.p-3 {
+  padding: 4rem;
+}
+
+.p-4 {
+  padding: 6rem;
+}
+
+.p-5 {
+  padding: 8rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.m-1 {
+  margin: 0.75rem;
+}
+
+.m-2 {
+  margin: 1.5rem;
+}
+
+.m-3 {
+  margin: 3rem;
+}
+
+.m-4 {
+  margin: 4.5rem;
+}
+
+.m-5 {
+  margin: 6rem;
+}
+
+
+
+#nav,.side--nav__list {
+        z-index: 99;
+}
+
+
+    /* Responsive typography */
+    @media screen and (min-width: 968px) {
+        :root {
+            --normal-font-size: 1rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .side--nav__logo {
+            display: none;
+        }
+
+        .side--nav__list {
+            position: fixed;
+            bottom: 2rem;
+            background-color: var(--bg-color);
+            box-shadow: 0 8px 24px hsla(228, 81%, 24%, 0.15);
+            width: 90%;
+            padding: 30px 40px;
+            border-radius: 1rem;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 36px;
+            transition: 0.4s;
+        }
+    }
+
+    .side--nav__link {
+        display: flex;
+        color: var(--font-color);
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .side--nav__link i {
+        font-size: 1.25rem;
+    }
+
+    .side--nav__link:hover {
+        color: var(--accent-color);
+    }
+
+    /* Active link */
+    .active-link {
+        color: var(--active-color);
+    }
+
+    @media screen and (max-width: 320px) {
+        .side--nav__list {
+            column-gap: 20px;
+        }
+    }
+
+    /* For medium devices */
+    @media screen and (min-width: 576px) {
+        .side--nav__list {
+            width: 332px;
+        }
+    }
+
+    @media screen and (min-width: 767px) {
+        .side--nav {
+            position: fixed;
+            left: 0;
+            background-color: var(--bg-color);
+            box-shadow: 1px 0 4px hsla(228, 81%, 49%, 0.15);
+            width: 84px;
+            height: 200vh;
+            padding: 2rem;
+            transition: 0.3s;
+        }
+        .side--nav__logo {
+            display: flex;
+        }
+        .side--nav__logo span {
+            font-family: "Bord Demo", sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-color)
+        }
+        .side--nav__logo,
+        .side--nav__link {
+            align-items: center;
+            column-gap: 2rem;
+        }
+        .side--nav__list {
+            display: grid;
+            row-gap: 2.5rem;
+            margin-top: 10.5rem;
+        }
+        .side--nav__content {
+            overflow: hidden;
+            height: 100%;
+        }
     }
 
     /* For 2K & 4K resolutions */

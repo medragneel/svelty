@@ -1,6 +1,5 @@
 <script lang="ts">
     import { media } from "$lib/api.js";
-    import "$lib/styles/global.css";
     export let data;
 </script>
 

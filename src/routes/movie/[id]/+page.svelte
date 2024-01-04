@@ -1,6 +1,5 @@
 <script lang="ts">
     import Header from "$lib/components/header.svelte";
-    import "$lib/styles/global.css";
     import { media } from "$lib/api.js";
     import type { Genre } from "$lib/types/movies";
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";

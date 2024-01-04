@@ -1,4 +1,5 @@
 <script>
+    import "$lib/styles/app.css";
     import Side from "$lib/components/side.svelte";
     let toggleActive = false;
     function toggle() {

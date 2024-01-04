@@ -1,5 +1,4 @@
 <script>
-    import "$lib/styles/global.css";
     import Tgrid from "$lib/components/tgrid.svelte";
     export let data;
 </script>

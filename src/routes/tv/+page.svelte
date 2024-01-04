@@ -1,6 +1,4 @@
 <script lang="ts">
-    // your script goes here
-    import "$lib/styles/global.css";
     import Hero from "$lib/components/hero.svelte";
     import Tslide from "$lib/components/tslide.svelte";
     import { Tviews } from "$lib/views.js";
