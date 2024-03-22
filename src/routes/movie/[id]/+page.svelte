@@ -7,11 +7,15 @@
 
     const servers = [
         {
-            name: "vidsrc",
+            name: "vidsrc.pro",
+            link: "https://vidsrc.pro/embed/movie/",
+        },
+        {
+            name: "vidsrc.to",
             link: "https://vidsrc.to/embed/movie/",
         },
         {
-            name: "vidsrc2",
+            name: "vidsrc.me",
             link: "https://vidsrc.me/embed/movie?tmdb=",
         },
         {

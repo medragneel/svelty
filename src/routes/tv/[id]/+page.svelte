@@ -7,11 +7,15 @@
 
     const servers = [
         {
-            name: "vidsrc",
+            name: "vidsrc.pro",
             link: "https://vidsrc.to/embed/tv/",
         },
         {
-            name: "vidsrc2",
+            name: "vidsrc.to",
+            link: "https://vidsrc.to/embed/tv/",
+        },
+        {
+            name: "vidsrc.me",
             link: "https://vidsrc.me/embed/tv?tmdb=",
         },
         {
@@ -99,7 +103,7 @@
     <center>
         <div class="iframe-container">
             <iframe
-                src={`https://vidsrc.to/embed/movie/${data.movie.id}`}
+                src={`https://vidsrc.pro/embed/tv/${data.movie.id}`}
                 title={data.movie.id.toString()}
                 sandbox="allow-same-origin allow-forms allow-scripts allow-presentation allow-orientation-lock"
                 allow="encrypted-media"
