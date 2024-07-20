@@ -1,9 +1,14 @@
 <script>
     import "$lib/styles/app.css";
     import Side from "$lib/components/side.svelte";
+    import { injectAnalytics } from "$lib/analytics";
+    import { browser } from "$app/environment";
     let toggleActive = false;
     function toggle() {
         toggleActive = !toggleActive;
+    }
+    if (browser) {
+        injectAnalytics();
     }
 </script>
 
