@@ -1,40 +1,40 @@
 <script lang="ts">
     import Header from "$lib/components/header.svelte";
     import { media } from "$lib/api.js";
-    import { fade, blur } from "svelte/transition";
+    import { fade } from "svelte/transition";
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import "@splidejs/svelte-splide/css";
+    import { writable } from "svelte/store";
 
     const servers = [
-        {
-            name: "vidsrc.pro",
-            link: "https://vidsrc.to/embed/tv/",
-        },
-        {
-            name: "vidsrc.to",
-            link: "https://vidsrc.to/embed/tv/",
-        },
-        {
-            name: "vidsrc.me",
-            link: "https://vidsrc.me/embed/tv?tmdb=",
-        },
-        {
-            name: "smashyStream",
-            link: "https://embed.smashystream.com/playere.php?tmdb=",
-            params: { season: 1, episode: 1 },
-        },
-        {
-            name: "superEmbed",
-            link: "https://multiembed.mov/?video_id=",
-            params: { tmdb: 1, s: 1, e: 1 },
-        },
+        { name: "vidsrc.pro", link: "https://vidsrc.pro/embed/tv/" },
+        { name: "vidsrc.to", link: "https://vidsrc.to/embed/tv/" },
+        // ... other servers
     ];
 
+    let selectedSeason = writable(1);
+    let selectedEpisode = writable(1);
+    let seasons = [];
+
     export let data;
+
+    $: if (data.movie.seasons) {
+        seasons = data.movie.seasons;
+        $selectedSeason = 1;
+        $selectedEpisode = 1;
+    }
+
+    let currentServer = servers[0];
+
+    function changeServer(server) {
+        currentServer = server;
+    }
+
+    $: currentSeason = seasons[$selectedSeason - 1] || null;
+    $: episodes = currentSeason?.episodes || [];
 </script>
 
 <Header movie={data.movie} trailer={data.trailer} name={data.movie.name} />
-
 <div class="container">
     <div class="overview">
         <h1 class="align-center p-1">Description</h1>
@@ -76,47 +76,80 @@
             </center>
         </div>
     {/if}
-    <div class="container">
-        <h1 class="align-center py-2">Watch links</h1>
-        <div class="links carousel">
-            {#each servers as server}
-                <a
-                    class="btn btn-dark"
-                    href={`${server.link}${data.movie.id}${
-                        server.params
-                            ? `&${Object.entries(server.params)
-                                  .map(([key, value]) => `${key}=${value}`)
-                                  .join("&")}`
-                            : ""
-                    }`}
-                    target="show"
-                >
-                    <i class="fa-solid fa-play pr-1" />
-                    {server.name}
-                </a>
-            {/each}
+</div>
+<div class="container">
+    {#if seasons.length > 0}
+        <div class="seasons-container">
+            <h2>Seasons</h2>
+            <div class="season-buttons">
+                {#each seasons as season (season.season_number)}
+                    <button
+                        class="btn btn-dark"
+                        on:click={() =>
+                            ($selectedSeason = season.season_number)}
+                    >
+                        Season {season.season_number}
+                    </button>
+                {/each}
+            </div>
         </div>
-    </div>
-    <br />
-    <br />
 
-    <center>
+        {#if episodes.length > 0}
+            <div class="episodes-container">
+                <h2>Episodes</h2>
+                <div class="episode-grid">
+                    {#each episodes as episode (episode.episode_number)}
+                        <button
+
+                            class="btn btn-dark"
+                            on:click={() =>
+                                ($selectedEpisode = episode.episode_number)}
+                        >
+                            Episode {episode.episode_number}
+                        </button>
+                    {/each}
+                </div>
+            </div>
+        {:else}
+            <p>No episodes available for this season.</p>
+        {/if}
+
+        <div class="server-container">
+            <h2>Watch Server</h2>
+            <div class="server-buttons">
+                {#each servers as server}
+                    <button
+                        class="btn btn-dark"
+                        on:click={() => changeServer(server)}
+                    >
+                        {server.name}
+                    </button>
+                {/each}
+            </div>
+        </div>
+        <br/>
+        <br/>
+
+
         <div class="iframe-container">
             <iframe
-                src={`https://vidsrc.pro/embed/tv/${data.movie.id}`}
-                title={data.movie.id.toString()}
-                sandbox="allow-same-origin allow-forms allow-scripts allow-presentation allow-orientation-lock"
-                allow="encrypted-media"
-                allowfullscreen
+                src={`${currentServer.link}${data.movie.id}/${$selectedSeason}/${$selectedEpisode}`}
+                title={`${data.movie.name} S${$selectedSeason}E${$selectedEpisode}`}
                 frameborder="0"
-                name="show"
+                allowfullscreen
             ></iframe>
         </div>
-    </center>
+    {:else}
+        <p>No seasons available for this show.</p>
+        <br />
+        <br />
+    {/if}
+</div>
+<br />
+<br />
+<br />
 
-    <br />
-    <br />
-
+<div class="container">
     <dl class="data container">
         <dt>Released</dt>
         <dd>{data.movie.release_date}</dd>
@@ -138,6 +171,7 @@
         </dd>
     </dl>
 </div>
+<br />
 <br />
 <br />
 
@@ -166,7 +200,7 @@
                         <img
                             src={media(movie.poster_path, 200)}
                             alt={movie.title}
-                            transition:blur
+                            transition:fade
                         />
                     </a>
                 </SplideSlide>
@@ -176,6 +210,55 @@
 {/if}
 
 <style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .overview {
+        margin-bottom: 1.5rem;
+    }
+
+    .seasons-container,
+    .episodes-container,
+    .server-container {
+        margin-bottom: 2rem;
+    }
+
+    .season-buttons,
+    .server-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .episode-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+
+
+
+    @media (max-width: 640px) {
+        .episode-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
     .cast-member {
         padding: 3rem;
         display: flex;
@@ -247,5 +330,12 @@
         .data {
             height: 0;
         }
+    }
+    /* Add this to your global CSS file or as a <style> tag in your Svelte component */
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
     }
 </style>
