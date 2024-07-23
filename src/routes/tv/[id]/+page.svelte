@@ -135,8 +135,11 @@
             <iframe
                 src={`${currentServer.link}${data.movie.id}/${$selectedSeason}/${$selectedEpisode}`}
                 title={`${data.movie.name} S${$selectedSeason}E${$selectedEpisode}`}
+                sandbox="allow-same-origin allow-forms allow-scripts allow-presentation allow-orientation-lock"
+                allow="encrypted-media"
                 frameborder="0"
                 allowfullscreen
+                name="tv"
             ></iframe>
         </div>
     {:else}
