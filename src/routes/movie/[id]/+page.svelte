@@ -2,7 +2,6 @@
     import Header from "$lib/components/header.svelte";
     import { media } from "$lib/api.js";
     import type { Genre } from "$lib/types/movies";
-    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import "@splidejs/svelte-splide/css";
 
     const servers = [
@@ -18,20 +17,13 @@
             name: "vidsrc.me",
             link: "https://vidsrc.me/embed/movie?tmdb=",
         },
-        {
-            name: "smashyStream",
-            link: "https://embed.smashystream.com/playere.php?tmdb=",
-        },
-        {
-            name: "superEmbed",
-            link: "https://multiembed.mov/?video_id=",
-        },
+        { name: "autoembed", link: "https://player.autoembed.cc/embed/movie/" },
     ];
     export let data;
     const genres: Genre[] = data.movie.genres;
 </script>
 
-<Header movie={data.movie} trailer={data.trailer} name={data.movie.title} />
+<Header movie={data.movie} name={data.movie.title} />
 
 <div class="container">
     <div class="overview">
@@ -41,33 +33,7 @@
     <br />
     <div class="cast">
         <h1 class="align-center p-2">Cast</h1>
-        <center>
-            <Splide
-                options={{
-                    type: "loop",
-                    perPage: 4,
-                    perMove: 1,
-                    autoWidth: true,
-                    gap: "0.5rem",
-                    pagination: false,
-                }}
-                aria-label="My Favorite Images"
-            >
-                {#each data.movie.credits.cast as castMember (castMember.id)}
-                    <SplideSlide>
-                        <div class="cast-member card">
-                            <img
-                                style="border-radius: 50%;"
-                                src={media(castMember.profile_path, 200)}
-                                alt={castMember.id.toString()}
-                            />
-                            <p>{castMember.name}</p>
-                            <em class="txt-disabled">{castMember.character}</em>
-                        </div>
-                    </SplideSlide>
-                {/each}
-            </Splide>
-        </center>
+        <center> </center>
     </div>
     <br />
     <div class="container">
@@ -126,39 +92,6 @@
 </div>
 <br />
 <br />
-
-{#if data.movie.recommendations.results.length > 0}
-    <div class="py-3 container">
-        <br />
-        <br />
-
-        <h1 class="py-1">You Might Like</h1>
-        <br />
-
-        <Splide
-            options={{
-                type: "loop",
-                perPage: 4,
-                perMove: 1,
-                autoWidth: true,
-                gap: "1rem",
-                rewind: true,
-            }}
-            aria-label="My Favorite Images"
-        >
-            {#each data.movie.recommendations.results as movie}
-                <SplideSlide>
-                    <a href={`/movie/${movie.id}`}>
-                        <img
-                            src={media(movie.poster_path, 200)}
-                            alt={movie.title}
-                        />
-                    </a>
-                </SplideSlide>
-            {/each}
-        </Splide>
-    </div>
-{/if}
 
 <style>
     .cast-member {

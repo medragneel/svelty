@@ -1,23 +1,23 @@
-// src/hooks.server.ts
+import type { Handle } from '@sveltejs/kit';
 
-export const handle = async ({ event, resolve }) => {
-    // before the server handles the request,
-    // you can do stuff here
+export const handle: Handle = async ({ event, resolve }) => {
+    // Get theme or set default
+    let theme = event.cookies.get("theme");
 
-    // the server handles the request
-    // and generates a response
-    const theme = event.cookies.get("theme");
     if (!theme) {
-        return await resolve(event);
+        theme = "light"; // Set default theme
+        event.cookies.set("theme", theme, { path: '/', maxAge: 60 * 60 * 24 * 365 }); // Set the cookie
+    } else {
+        console.log("Theme found:", theme);
     }
 
-    // after the server handles the request,
-    // you can do stuff here
-
-    // the response is sent to the browser
-    return await resolve(event, {
+    // Always apply the transformation
+    const response = await resolve(event, {
         transformPageChunk: ({ html }) => {
-            return html.replace('data-theme=""', `data-theme="${theme}"`);
+            const transformedHtml = html.replace('data-theme=""', `data-theme="${theme}"`);
+            return transformedHtml;
         },
     });
+
+    return response;
 };

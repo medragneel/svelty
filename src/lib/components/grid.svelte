@@ -10,8 +10,10 @@
     <div class="grid">
         {#each movies as movie (movie.id)}
             <a href={`/movie/${movie.id}`}>
-                <img src={media(movie.poster_path, 200)} alt={movie.id.toString
-                ()} />
+                <img
+                    src={media(movie?.poster_path, 200)}
+                    alt={movie.id.toString()}
+                />
             </a>
         {/each}
     </div>

@@ -47,7 +47,7 @@
                 <div
                     class="item {i === 0 ? 'active' : ''}"
                     style="background-image: url({media(
-                        movie.poster_path,
+                        movie?.poster_path,
                         500,
                     )});"
                 >

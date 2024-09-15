@@ -6,17 +6,16 @@
     export let movie: MovieDetails;
     export let name: string;
     export let media_type: string;
-    $: images = movie.images;
-    $: backdrops = images.backdrops.find((img) => !img.iso_639_1);
+    $: image = movie?.backdrop_path || "";
 </script>
 
 <!-- #CodePenChallenge: Reflections -->
 <div class="top">
     <div class="columns">
         <div class="column is-full featured_wrapper p-0">
-            {#if backdrops?.file_path !== undefined}
+            {#if image}
                 <img
-                    src={media(backdrops?.file_path, 1280)}
+                    src={media(image, 1280)}
                     alt={movie.id.toString()}
                     class="featured"
                 />
@@ -29,10 +28,10 @@
             {/if}
             <div class="title_wrapper container">
                 <span class="txt-light">Trending Today</span>
-                <h1 class="title txt-light fs-xxl">
+                <h1 class="title txt-light fs-2xl font-bold">
                     {name}
                 </h1>
-                <span class="txt-light">{movie.overview}</span>
+                <span class="txt-light font-semibold">{movie.overview}</span>
                 <br />
                 <br />
                 <br />

@@ -2,7 +2,7 @@ import * as api from "$lib/api"
 import type { ShowList, ShowListResult, Video, Season } from "$lib/types/movies"
 
 export async function load({ params, fetch }) {
-    const showData = await api.get(fetch, `/tv/${params.id}`, {
+    const showData = await api.get(fetch, `tv/${params.id}`, {
         append_to_response: 'images,videos,recommendations,credits'
     })
 
@@ -14,15 +14,14 @@ export async function load({ params, fetch }) {
         })
     )
 
-    const trailer = showData.videos.results.find((video: Video) => {
-        return video.official && video.site === 'YouTube' && (video.type === 'Trailer' || video.type === 'Teaser')
-    })
+    // const trailer = showData.videos.results.find((video: Video) => {
+    //     return video.official && video.site === 'YouTube' && (video.type === 'Trailer' || video.type === 'Teaser')
+    // })
 
     return {
         movie: {
             ...showData,
             seasons: seasons
         },
-        trailer
     }
 }

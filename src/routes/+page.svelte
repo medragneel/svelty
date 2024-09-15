@@ -8,6 +8,7 @@
 
 <div class="main" transition:slide>
     <Hero movie={data.featured} name={data.featured.title} media_type="movie" />
+
     <Carousel
         title={views.trending.title}
         movies={data.trending}

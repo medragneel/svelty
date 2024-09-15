@@ -2,19 +2,21 @@
     import Header from "$lib/components/header.svelte";
     import { media } from "$lib/api.js";
     import { fade } from "svelte/transition";
-    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
-    import "@splidejs/svelte-splide/css";
     import { writable } from "svelte/store";
 
-    const servers = [
+    type Server = {
+        name: string;
+        link: string;
+    };
+    const servers: Server[] = [
         { name: "vidsrc.pro", link: "https://vidsrc.pro/embed/tv/" },
-        { name: "vidsrc.to", link: "https://vidsrc.to/embed/tv/" },
-        // ... other servers
+        { name: "vidsrc2.to", link: "https://vidsrc.to/embed/tv/" },
+        { name: "autoembed", link: "https://player.autoembed.cc/embed/tv/" },
     ];
 
     let selectedSeason = writable(1);
     let selectedEpisode = writable(1);
-    let seasons = [];
+    let seasons: any[] = [];
 
     export let data;
 
@@ -26,7 +28,7 @@
 
     let currentServer = servers[0];
 
-    function changeServer(server) {
+    function changeServer(server: Server) {
         currentServer = server;
     }
 
@@ -34,7 +36,7 @@
     $: episodes = currentSeason?.episodes || [];
 </script>
 
-<Header movie={data.movie} trailer={data.trailer} name={data.movie.name} />
+<Header movie={data.movie} name={data.movie.name} />
 <div class="container">
     <div class="overview">
         <h1 class="align-center p-1">Description</h1>
@@ -45,35 +47,7 @@
     {#if data.movie.credits.cast.length > 0}
         <div class="cast">
             <h1 class="align-center p-2">Cast</h1>
-            <center>
-                <Splide
-                    options={{
-                        type: "loop",
-                        perPage: 4,
-                        perMove: 1,
-                        autoWidth: true,
-                        gap: "0.5rem",
-                        pagination: false,
-                    }}
-                    aria-label="My Favorite Images"
-                >
-                    {#each data.movie.credits.cast as castMember (castMember.id)}
-                        <SplideSlide>
-                            <div class="cast-member card">
-                                <img
-                                    style="border-radius: 50%;"
-                                    src={media(castMember.profile_path, 200)}
-                                    alt={castMember.id.toString()}
-                                />
-                                <p>{castMember.name}</p>
-                                <em class="txt-disabled"
-                                    >{castMember.character}</em
-                                >
-                            </div>
-                        </SplideSlide>
-                    {/each}
-                </Splide>
-            </center>
+            <center> </center>
         </div>
     {/if}
 </div>
@@ -100,7 +74,6 @@
                 <div class="episode-grid">
                     {#each episodes as episode (episode.episode_number)}
                         <button
-
                             class="btn btn-dark"
                             on:click={() =>
                                 ($selectedEpisode = episode.episode_number)}
@@ -127,15 +100,13 @@
                 {/each}
             </div>
         </div>
-        <br/>
-        <br/>
-
+        <br />
+        <br />
 
         <div class="iframe-container">
             <iframe
                 src={`${currentServer.link}${data.movie.id}/${$selectedSeason}/${$selectedEpisode}`}
                 title={`${data.movie.name} S${$selectedSeason}E${$selectedEpisode}`}
-                sandbox="allow-same-origin allow-forms allow-scripts allow-presentation allow-orientation-lock"
                 allow="encrypted-media"
                 frameborder="0"
                 allowfullscreen
@@ -253,8 +224,6 @@
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
     }
-
-
 
     @media (max-width: 640px) {
         .episode-grid {

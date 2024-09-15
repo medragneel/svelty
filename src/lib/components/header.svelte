@@ -4,22 +4,18 @@
     import { fade } from "svelte/transition";
 
     export let movie: MovieDetails;
-    export let trailer: Trailer | undefined;
     export let name: string;
     let Watching = false;
     const toggleWatching = () => (Watching = !Watching);
-
-    $: images = movie.images;
-    $: backdrops = images.backdrops.find((img) => !img.iso_639_1);
 </script>
 
 <div class="top">
     <div class="columns">
         {#if !Watching}
             <div class="column is-full featured_wrapper p-0" transition:fade>
-                {#if backdrops?.file_path !== undefined}
+                {#if movie.backdrop_path}
                     <img
-                        src={media(backdrops?.file_path, 1280)}
+                        src={media(movie.backdrop_path, 1280)}
                         alt={movie.id.toString()}
                         class="featured"
                     />
@@ -32,7 +28,7 @@
                 {/if}
                 <div class="title_wrapper">
                     <span class="txt-light">Trending Today</span>
-                    <h1 class="title txt-light fs-xxl">
+                    <h1 class="title txt-light text-2xl font-bold">
                         {name}
                     </h1>
                     <br />
@@ -48,21 +44,7 @@
                 </div>
             </div>
         {:else}
-            <div
-                class="column grid"
-                class:has-trailer={!!trailer}
-                transition:fade
-            >
-                {#if trailer}
-                    <iframe
-                        src="https://www.youtube.com/embed/{trailer?.key}"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                    />
-                {/if}
-            </div>
+            <p>no trailer</p>
         {/if}
     </div>
 </div>

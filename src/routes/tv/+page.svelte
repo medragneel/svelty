@@ -8,6 +8,7 @@
 
 <div class="main" transition:slide>
     <Hero movie={data.featured} name={data.featured.name} media_type="tv" />
+
     <Tslide
         title={Tviews.trending.title}
         shows={data.trending}

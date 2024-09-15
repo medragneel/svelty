@@ -1,42 +1,17 @@
 <script>
+    import "../app.css";
     import "$lib/styles/app.css";
     import Side from "$lib/components/side.svelte";
     import { injectAnalytics } from "$lib/analytics";
     import { browser } from "$app/environment";
-    let toggleActive = false;
-    function toggle() {
-        toggleActive = !toggleActive;
-    }
     if (browser) {
         injectAnalytics();
     }
 </script>
 
-<!-- <nav class="nav px-1"> -->
-<!--     <div class="logo"> -->
-<!--         <a href="/" class="txt-dark"> -->
-<!--             <span>Svelty</span> -->
-<!--         </a> -->
-<!--     </div> -->
-<!--     <a class="hamburger" href="?" on:click={toggle}> -->
-<!--         <span class="bar bar1 bg-dark" /> -->
-<!--         <span class="bar bar2 bg-dark" /> -->
-<!--         <span class="bar bar3 bg-dark" /> -->
-<!--     </a> -->
-<!---->
-<!--     <div class={`nav-links ${toggleActive ? "active" : ""}`}> -->
-<!--         <ul> -->
-<!--             <li><a href="/">Home</a></li> -->
-<!--             <li><a href="/search">search</a></li> -->
-<!--             <li><a href="/tv">Tv</a></li> -->
-<!--         </ul> -->
-<!--     </div> -->
-<!-- </nav> -->
-
-<Side />
-
+<Side></Side>
 <div class="side-container">
-    <slot />
+    <slot></slot>
 </div>
 
 <br />

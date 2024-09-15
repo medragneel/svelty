@@ -1,14 +1,16 @@
 import * as api from "$lib/api"
-export async function load({url,fetch}){
+export async function load({ url, fetch }) {
     const query = url.searchParams.get('query')
     if (!query) {
         return {
             query,
-            movies:[]
+            movies: []
         }
     }
 
-    const data = await api.get(fetch,'/search/multi',{query})
+    const data = await api.get(fetch, 'search/multi', { query })
+    console.log(data)
+    console.log(query)
     return {
         query,
         movies: data.results

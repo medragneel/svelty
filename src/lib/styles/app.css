@@ -149,6 +149,17 @@ input, textarea {
   border: 1px solid var(--accent-color);
 }
 
+.btn-danger-outline {
+  background-color: transparent;
+  border: 1px solid hsl(337deg, 100%, 50%);
+  color: hsl(337deg, 100%, 50%);
+}
+.btn-danger-outline:hover {
+  background-color: hsl(337deg, 100%, 50%);
+  color: hsl(0deg, 0%, 93%);
+  border: none;
+}
+
 
 .p-0 {
   padding: 0;
