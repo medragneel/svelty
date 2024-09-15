@@ -156,30 +156,6 @@
     <div class="py-3 container" transition:fade>
         <h1 class="py-1">You Might Like</h1>
         <br />
-
-        <Splide
-            options={{
-                type: "loop",
-                perPage: 4,
-                perMove: 1,
-                autoWidth: true,
-                gap: "1rem",
-                rewind: true,
-            }}
-            aria-label="My Favorite Images"
-        >
-            {#each data.movie.recommendations.results as movie}
-                <SplideSlide>
-                    <a href={`/tv/${movie.id}`}>
-                        <img
-                            src={media(movie.poster_path, 200)}
-                            alt={movie.title}
-                            transition:fade
-                        />
-                    </a>
-                </SplideSlide>
-            {/each}
-        </Splide>
     </div>
 {/if}
 

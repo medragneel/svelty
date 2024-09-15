@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
-    import "@splidejs/svelte-splide/css";
     import { onMount } from "svelte";
     import { media } from "$lib/api";
     import type { MovieList } from "$lib/types/movies";
@@ -37,29 +35,7 @@
     </h2>
 </div>
 
-<section class="game-section">
-    <Splide
-        options={{ type: "loop", perPage: 4, perMove: 1, autoWidth: true }}
-        aria-label="My Favorite Images"
-    >
-        {#each movies.results as movie, i (movie.id)}
-            <SplideSlide>
-                <div
-                    class="item {i === 0 ? 'active' : ''}"
-                    style="background-image: url({media(
-                        movie?.poster_path,
-                        500,
-                    )});"
-                >
-                    <div class="item-desc">
-                        <h3>{movie.title}</h3>
-                        <p>{movie.overview}</p>
-                    </div>
-                </div>
-            </SplideSlide>
-        {/each}
-    </Splide>
-</section>
+<section class="game-section"></section>
 
 <style>
     .game-section {
